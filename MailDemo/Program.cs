@@ -5,36 +5,104 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using MailBee.Mime;
+using MailBee.SmtpMail;
 
 namespace MailDemo
 {
     class Program
     {
-       public static string bodyCotent = "Frank Test Custom Set Message ID!" +
-                "<br/>one custom field name: x-name-fcf" +
-                "<br/>add one hidden string:[DQ759E-0P5X] at the bottom." +
-                 "<br/>测试编码，加上中文。" +
-                "<br/><span style='color:#FFFFFF'>[DQ759E-0P5X]</span>";
-
+        public static string bodyCotent = "Frank Test Custom Set Message ID!";
 
         static void Main(string[] args)
         {
-            MailBee.Global.LicenseKey = "MN110-9E565627568556335608A32D4F47-FC3B";
+            MailBee.Global.LicenseKey = "MN110-24ECECA1EC25EC74EC0082EEF666-7441";
             try
             {
-                IMAPServer.TestReceiveEmail();
+                //IMAPServer.TestReceiveEmail();
                 //SendMail126();
+                SendMailWithTLS();
                 //SendMailQQ();
                 //SendMail163();
                 //Console.WriteLine(EncodeUtil.GenSHA1("12345678"));
                 //Console.WriteLine(EncodeUtil.GenSHA1("123456"));
-                //Console.WriteLine("Send Success!");
+                Console.WriteLine("Send Success!");
                 Console.ReadKey();
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
+                Console.Write(ex);
                 Console.ReadKey();
+            }
+        }
+
+        public static void SendMailWithTLS()
+        {
+            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            string type = "tls";  //
+            string body = "no ssl";
+            MailBee.SmtpMail.Smtp smtp = new MailBee.SmtpMail.Smtp();
+            MailBee.SmtpMail.SmtpServer smtpServer = new MailBee.SmtpMail.SmtpServer();
+            switch (type)
+            {
+                case "ssl":
+                    smtpServer.SslMode = MailBee.Security.SslStartupMode.OnConnect;
+                    smtpServer.SslProtocol = MailBee.Security.SecurityProtocol.Auto;
+                    smtpServer.Port = 465;
+                    body = "with ssl";
+                    break;
+                case "tls":
+                    smtpServer.SslMode = MailBee.Security.SslStartupMode.UseStartTls;
+                    smtpServer.SslProtocol = MailBee.Security.SecurityProtocol.Tls12;
+                    smtpServer.Port = 587;
+                    body = "with tls";
+                    break;
+                default:
+                    smtpServer.Port = 25;
+                    break;
+            }
+            MailBee.Mime.MailMessage message = new MailBee.Mime.MailMessage();
+            BuildMessage("qq", message, smtpServer);
+            smtpServer.AuthMethods = MailBee.AuthenticationMethods.SaslLogin;
+            smtp.SmtpServers.Add(smtpServer);
+            //bool con = smtp.Connect();
+            //bool login = smtp.Login(); 
+            message.To.Add(new EmailAddress("fengchufu@126.com"));
+            message.BodyHtmlText = body;
+
+            smtp.Message = message;
+            smtp.Log.Enabled = true;
+            smtp.Log.Filename = @"F:\MailDemo\log\log.txt";
+            smtp.Send();
+        }
+
+        public static void BuildMessage(string mailType, MailBee.Mime.MailMessage message, SmtpServer server)
+        {
+            switch (mailType)
+            {
+                case "126":
+
+                    message.From = new EmailAddress("frankfeng23@126.com");
+                    message.Subject = "Test Send from 126 Mail";
+                    server.Name = "smtp.126.com";
+                    server.AccountName = "frankfeng23";
+                    server.Password = "Aa00000000";
+                    break;
+                case "qq":
+                    message.From = new EmailAddress("306836903@qq.com");
+                    message.Subject = "Test Send from qq Mail";
+                    server.Name = "smtp.qq.com";
+                    server.AccountName = "306836903";
+                    server.Password = "iqrcxrkdlbsjcbdd";
+                    break;
+                case "gmail":
+                    message.From = new EmailAddress("fengchufu@gmail.com");
+                    message.Subject = "Test Send from gmail Mail";
+                    server.Name = "smtp.gmail.com";
+                    server.AccountName = "fengchufu";
+                    server.Password = "fcf.1130,gmail";
+                    break;
+                default:
+                    break;
             }
         }
         public void Test()
@@ -100,7 +168,7 @@ namespace MailDemo
             client.EnableSsl = true;
             client.Send(message);
         }
-         
+
         public static void SendMail163()
         {
             string account = "fengchufu";
@@ -113,7 +181,7 @@ namespace MailDemo
             message.To.Add(new MailAddress("alex@comm100.com"));
             //string keys = message.Headers.GetKey(0);
             string[] allkeys = message.Headers.AllKeys;
-            message.Headers.Add("x_name_fcf","frank");
+            message.Headers.Add("x_name_fcf", "frank");
             message.Headers.Set("Message-ID", "ASDFGH-123456789-FrankSetMID");
             message.Subject = "Test Set Message ID";
             message.BodyEncoding = System.Text.UTF8Encoding.UTF8;
@@ -129,7 +197,7 @@ namespace MailDemo
         public static MailBee.Mime.MailMessage Pop3ReceiveEmail()
         {
             try
-            { 
+            {
                 MailBee.Pop3Mail.Pop3 pop3 = new MailBee.Pop3Mail.Pop3();
 
 
@@ -139,7 +207,7 @@ namespace MailDemo
                 }
                 if (!pop3.IsLoggedIn)
                 {
-                     bool ifLogin = pop3.Login("frankfeng23", "Aa00000000");
+                    bool ifLogin = pop3.Login("frankfeng23", "Aa00000000");
                 }
 
                 int count = pop3.InboxMessageCount;
