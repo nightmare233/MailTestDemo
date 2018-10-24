@@ -1,0 +1,47 @@
+[18:21:28.64] [INFO] Assembly version: 11.2.0 build 590 for .NET 4.5.
+[18:21:28.64] [INFO] Will send mail message.
+[18:21:28.70] [INFO] Will resolve host "smtp.qq.com".
+[18:21:28.71] [INFO] Host "smtp.qq.com" resolved to IP address(es) 14.18.245.164, 14.17.57.241.
+[18:21:28.71] [INFO] Will connect to host "smtp.qq.com" on port 587.
+[18:21:28.74] [INFO] Socket connected to IP address 14.18.245.164 on port 587.
+[18:21:28.77] [RECV] 220 smtp.qq.com Esmtp QQ Mail Server\r\n
+[18:21:28.77] [INFO] Connected to mail service at host "smtp.qq.com" on port 587 and ready.
+[18:21:28.77] [INFO] Will send Hello command (HELO or EHLO).
+[18:21:28.77] [SEND] EHLO [192.168.0.4]\r\n
+[18:21:28.80] [RECV] 250-smtp.qq.com\r\n250-PIPELINING\r\n250-SIZE 73400320\r\n250-STARTTLS\r\n250-AUTH LOGIN PLAIN\r\n250-AUTH=LOGIN\r\n250-MAILCOMPRESS\r\n250 8BITMIME\r\n
+[18:21:28.80] [INFO] SMTP Hello completed.
+[18:21:28.80] [INFO] Notify server that we are ready to start TLS/SSL negotiation.
+[18:21:28.80] [SEND] STARTTLS\r\n
+[18:21:28.82] [RECV] 220 Ready to start TLS\r\n
+[18:21:28.83] [INFO] Will start TLS/SSL negotiation sequence.
+[18:21:28.93] [INFO] TLS/SSL negotiation completed.
+[18:21:28.93] [INFO] Will send Hello command (HELO or EHLO).
+[18:21:28.94] [SEND] EHLO [192.168.0.4]\r\n
+[18:21:28.96] [RECV] 250-smtp.qq.com\r\n250-PIPELINING\r\n250-SIZE 73400320\r\n250-AUTH LOGIN PLAIN\r\n250-AUTH=LOGIN\r\n250-MAILCOMPRESS\r\n250 8BITMIME\r\n
+[18:21:28.96] [INFO] SMTP Hello completed.
+[18:21:28.96] [INFO] Will login as "306836903".
+[18:21:28.96] [INFO] Will try SASL LOGIN authentication method.
+[18:21:28.97] [SEND] AUTH LOGIN ********\r\n
+[18:21:28.99] [RECV] 334 UGFzc3dvcmQ6\r\n
+[18:21:28.99] [SEND] ********\r\n
+[18:21:29.16] [RECV] 235 Authentication successful\r\n
+[18:21:29.16] [INFO] Logged in as "306836903".
+[18:21:29.16] [INFO] Will send mail message to SMTP server "smtp.qq.com".
+[18:21:29.17] [INFO] Will submit sender and recipients.
+[18:21:29.17] [SEND] MAIL FROM:<306836903@qq.com> SIZE=663\r\n
+[18:21:29.17] [SEND] RCPT TO:<fengchufu@126.com>\r\n
+[18:21:29.19] [RECV] 250 Ok\r\n
+[18:21:29.23] [RECV] 250 Ok\r\n
+[18:21:29.23] [INFO] Sender and recipients accepted by SMTP server.
+[18:21:29.24] [INFO] Will send message data now.
+[18:21:29.24] [SEND] DATA\r\n
+[18:21:29.26] [RECV] 354 End data with <CR><LF>.<CR><LF>\r\n
+[18:21:29.26] [SEND] MIME-Version: 1.0\r\nX-Mailer: MailBee.NET 11.2.0.590\r\nFrom: 30683 ... ble\r\n\r\nwith tls\r\n------=_NextPart_000_0FF0_5B560D45.631E39D0--\r\n [Data chunk of 663 bytes sent.]
+[18:21:29.26] [SEND] .\r\n
+[18:21:29.85] [RECV] 250 Ok: queued as \r\n
+[18:21:29.85] [INFO] Message successfully submitted to SMTP server.
+[18:21:29.85] [SEND] QUIT\r\n
+[18:21:29.87] [RECV] 221 Bye\r\n
+[18:21:29.87] [INFO] Will disconnect from host "smtp.qq.com".
+[18:21:29.90] [INFO] Disconnected from host "smtp.qq.com".
+[18:21:29.90] [INFO] Mail message sent.

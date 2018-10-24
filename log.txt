@@ -1,0 +1,71 @@
+[09:48:40.90] [INFO] Assembly version: 11.2.0 build 590 for .NET 4.5.
+[09:48:40.90] [INFO] Will resolve host "pop3.126.com".
+[09:48:40.94] [INFO] Host "pop3.126.com" resolved to IP address(es) 220.181.15.128.
+[09:48:40.95] [INFO] Will connect to host "pop3.126.com" on port 110.
+[09:48:40.98] [INFO] Socket connected to IP address 220.181.15.128 on port 110.
+[09:48:41.09] [RECV] +OK Welcome to coremail Mail Pop3 Server (126coms[753e2252bd59b8c4a1c2eb6d5fe57cb3s])\r\n
+[09:48:41.09] [INFO] Connected to mail service at host "pop3.126.com" on port 110 and ready.
+[09:48:41.10] [INFO] Get the list of POP3 capabilities via CAPA command.
+[09:48:41.10] [SEND] CAPA\r\n
+[09:48:41.19] [RECV] +OK Capability list follows\r\nTOP\r\nUSER\r\nPIPELINING\r\nUIDL\r\nLANG\r\nUTF8\r\nSASL PLAIN\r\nSTLS\r\n.\r\n
+[09:48:41.21] [INFO] Will login as "frankfeng23".
+[09:48:41.21] [INFO] Will try SASL PLAIN authentication method.
+[09:48:41.21] [SEND] AUTH PLAIN\r\n
+[09:48:41.29] [RECV] + \r\n
+[09:48:41.29] [SEND] ********\r\n
+[09:48:41.39] [RECV] +OK 1116 message(s) [10573381 byte(s)]\r\n
+[09:48:41.39] [INFO] Logged in as "frankfeng23".
+[09:48:41.40] [INFO] Download inbox statistics.
+[09:48:41.40] [SEND] STAT\r\n
+[09:48:41.50] [RECV] +OK 1116 10573381\r\n
+[09:48:41.50] [INFO] Will download entire message (index=-1).
+[09:48:41.50] [SEND] RETR 1116\r\n
+[09:48:41.60] [RECV] +OK 3704 octets\r\nReceived: from m12-14.163.com (unknown [220.181 ... A</body></html>\r\n------=_001_NextPart532087422782_=------\r\n\r\n.\r\n [Total 3724 bytes received.]
+[09:48:41.62] [INFO] Downloaded entire message (index=1116).
+[10:44:20.47] [INFO] Assembly version: 11.2.0 build 590 for .NET 4.5.
+[10:44:20.47] [INFO] Will send mail message.
+[10:44:20.53] [INFO] Will resolve host "smtp.qq.com".
+[10:44:20.55] [INFO] Host "smtp.qq.com" resolved to IP address(es) 14.18.245.164, 14.17.57.241.
+[10:44:20.55] [INFO] Will connect to host "smtp.qq.com" on port 587.
+[10:44:20.61] [INFO] Socket connected to IP address 14.18.245.164 on port 587.
+[10:44:20.71] [RECV] 220 smtp.qq.com Esmtp QQ Mail Server\r\n
+[10:44:20.71] [INFO] Connected to mail service at host "smtp.qq.com" on port 587 and ready.
+[10:44:20.72] [INFO] Will send Hello command (HELO or EHLO).
+[10:44:20.72] [SEND] EHLO [192.168.0.4]\r\n
+[10:44:20.81] [RECV] 250-smtp.qq.com\r\n250-PIPELINING\r\n250-SIZE 73400320\r\n250-STARTTLS\r\n250-AUTH LOGIN PLAIN\r\n250-AUTH=LOGIN\r\n250-MAILCOMPRESS\r\n250 8BITMIME\r\n
+[10:44:20.82] [INFO] SMTP Hello completed.
+[10:44:20.82] [INFO] Notify server that we are ready to start TLS/SSL negotiation.
+[10:44:20.82] [SEND] STARTTLS\r\n
+[10:44:20.91] [RECV] 220 Ready to start TLS\r\n
+[10:44:20.92] [INFO] Will start TLS/SSL negotiation sequence.
+[10:44:21.13] [INFO] TLS/SSL negotiation completed.
+[10:44:21.14] [INFO] Will send Hello command (HELO or EHLO).
+[10:44:21.14] [SEND] EHLO [192.168.0.4]\r\n
+[10:44:21.22] [RECV] 250-smtp.qq.com\r\n250-PIPELINING\r\n250-SIZE 73400320\r\n250-AUTH LOGIN PLAIN\r\n250-AUTH=LOGIN\r\n250-MAILCOMPRESS\r\n250 8BITMIME\r\n
+[10:44:21.22] [INFO] SMTP Hello completed.
+[10:44:21.22] [INFO] Will login as "306836903".
+[10:44:21.23] [INFO] Will try SASL LOGIN authentication method.
+[10:44:21.23] [SEND] AUTH LOGIN ********\r\n
+[10:44:21.32] [RECV] 334 UGFzc3dvcmQ6\r\n
+[10:44:21.32] [SEND] ********\r\n
+[10:44:21.63] [RECV] 235 Authentication successful\r\n
+[10:44:21.63] [INFO] Logged in as "306836903".
+[10:44:21.63] [INFO] Will send mail message to SMTP server "smtp.qq.com".
+[10:44:21.64] [INFO] Will submit sender and recipients.
+[10:44:21.64] [SEND] MAIL FROM:<306836903@qq.com> SIZE=663\r\n
+[10:44:21.64] [SEND] RCPT TO:<fengchufu@126.com>\r\n
+[10:44:21.73] [RECV] 250 Ok\r\n
+[10:44:21.73] [RECV] 250 Ok\r\n
+[10:44:21.73] [INFO] Sender and recipients accepted by SMTP server.
+[10:44:21.73] [INFO] Will send message data now.
+[10:44:21.74] [SEND] DATA\r\n
+[10:44:21.83] [RECV] 354 End data with <CR><LF>.<CR><LF>\r\n
+[10:44:21.84] [SEND] MIME-Version: 1.0\r\nX-Mailer: MailBee.NET 11.2.0.590\r\nFrom: 30683 ... ble\r\n\r\nwith tls\r\n------=_NextPart_000_E18E_3581B829.55DD525B--\r\n [Data chunk of 663 bytes sent.]
+[10:44:21.84] [SEND] .\r\n
+[10:44:22.45] [RECV] 250 Ok: queued as \r\n
+[10:44:22.45] [INFO] Message successfully submitted to SMTP server.
+[10:44:22.45] [SEND] QUIT\r\n
+[10:44:22.55] [RECV] 221 Bye\r\n
+[10:44:22.55] [INFO] Will disconnect from host "smtp.qq.com".
+[10:44:22.57] [INFO] Disconnected from host "smtp.qq.com".
+[10:44:22.57] [INFO] Mail message sent.

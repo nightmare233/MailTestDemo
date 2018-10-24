@@ -12,20 +12,25 @@ namespace MailDemo
     class Program
     {
         public static string bodyCotent = "Frank Test Custom Set Message ID!";
-
+       
         static void Main(string[] args)
         {
-            MailBee.Global.LicenseKey = "MN110-24ECECA1EC25EC74EC0082EEF666-7441";
+            //MailBee.Global.LicenseKey = "MN110-24ECECA1EC25EC74EC0082EEF666-7441";
             try
             {
                 //IMAPServer.TestReceiveEmail();
                 //SendMail126();
-                SendMailWithTLS();
+                //SendMailWithTLS();
                 //SendMailQQ();
                 //SendMail163();
                 //Console.WriteLine(EncodeUtil.GenSHA1("12345678"));
                 //Console.WriteLine(EncodeUtil.GenSHA1("123456"));
-                Console.WriteLine("Send Success!");
+                //Console.WriteLine("long date: "+ DateTime.Now.ToLongDateString());
+                //Console.WriteLine("short date: " + DateTime.Now.ToString("yyyy-MM-dd-HH"));
+                //Console.WriteLine("hour: " + DateTime.Now.Hour);
+                //Pop3ReceiveEmail();
+                ExchangeTest.TestExchange();
+                Console.WriteLine("done!");
                 Console.ReadKey();
             }
             catch (Exception ex)
@@ -51,8 +56,8 @@ namespace MailDemo
                     body = "with ssl";
                     break;
                 case "tls":
-                    smtpServer.SslMode = MailBee.Security.SslStartupMode.UseStartTls;
-                    smtpServer.SslProtocol = MailBee.Security.SecurityProtocol.Tls12;
+                    smtpServer.SslMode = MailBee.Security.SslStartupMode.UseStartTlsIfSupported;
+                    //smtpServer.SslProtocol = MailBee.Security.SecurityProtocol.Tls12;
                     smtpServer.Port = 587;
                     body = "with tls";
                     break;
@@ -70,8 +75,8 @@ namespace MailDemo
             message.BodyHtmlText = body;
 
             smtp.Message = message;
-            smtp.Log.Enabled = true;
-            smtp.Log.Filename = @"F:\MailDemo\log\log.txt";
+            smtp.Log.Enabled = true;   //写日志
+            smtp.Log.Filename = @"F:\DevProject\MailTestDemo\log.txt";  
             smtp.Send();
         }
 
@@ -199,7 +204,8 @@ namespace MailDemo
             try
             {
                 MailBee.Pop3Mail.Pop3 pop3 = new MailBee.Pop3Mail.Pop3();
-
+                pop3.Log.Enabled = true;
+                pop3.Log.Filename = @"F:\DevProject\MailTestDemo\log.txt"; 
 
                 if (!pop3.IsConnected)
                 {
