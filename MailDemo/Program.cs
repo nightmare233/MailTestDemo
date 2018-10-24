@@ -18,6 +18,7 @@ namespace MailDemo
             //MailBee.Global.LicenseKey = "MN110-24ECECA1EC25EC74EC0082EEF666-7441";
             try
             {
+                Console.WriteLine("begin...");
                 //IMAPServer.TestReceiveEmail();
                 //SendMail126();
                 //SendMailWithTLS();
@@ -29,7 +30,8 @@ namespace MailDemo
                 //Console.WriteLine("short date: " + DateTime.Now.ToString("yyyy-MM-dd-HH"));
                 //Console.WriteLine("hour: " + DateTime.Now.Hour);
                 //Pop3ReceiveEmail();
-                ExchangeTest.TestExchange();
+                //ExchangeTest.TestExchange();
+                ExchangeTest.Archive();
                 Console.WriteLine("done!");
                 Console.ReadKey();
             }

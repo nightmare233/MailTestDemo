@@ -9,6 +9,8 @@ using Microsoft.Exchange.WebServices.Auth;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
+using System.Diagnostics;
+using System.Threading;
 
 namespace MailDemo
 {
@@ -153,19 +155,25 @@ namespace MailDemo
             } 
         }
 
-        public void MoveArchive(DateTime date, int count)
+        /// <summary>
+        /// 从当前日期开始往前move
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="count"></param>
+        public void MoveBeforeDateArchive(DateTime date, int count)
         { 
             try
-            { 
+            {
                 SearchFilter.IsLessThanOrEqualTo filter = new SearchFilter.IsLessThanOrEqualTo(ItemSchema.DateTimeReceived, date);
-
+                SearchFilter.IsGreaterThanOrEqualTo filter2 = new SearchFilter.IsGreaterThanOrEqualTo(ItemSchema.DateTimeReceived, date.AddDays(-1));
+                SearchFilter.SearchFilterCollection searchFilterCollection = new SearchFilter.SearchFilterCollection(LogicalOperator.And, filter,filter2); 
                 if (_service != null)
                 {
                     FindFoldersResults aFolders = _service.FindFolders(WellKnownFolderName.MsgFolderRoot, new SearchFilter.IsEqualTo(FolderSchema.DisplayName, "Archive"), new FolderView(10));
                     if (aFolders.Folders.Count == 1)
                     {
                         FolderId archiveFolderId = aFolders.Folders[0].Id;
-                        FindItemsResults<Item> findResults = _service.FindItems(WellKnownFolderName.Inbox, filter, new ItemView(count));
+                        FindItemsResults<Item> findResults = _service.FindItems(WellKnownFolderName.Inbox, searchFilterCollection, new ItemView(count));
                         Console.WriteLine($"date: {date.ToShortDateString()}, count: {findResults.TotalCount}");
                         List<ItemId> itemids = new List<ItemId>();
                         foreach (var item in findResults)
@@ -185,6 +193,76 @@ namespace MailDemo
                 Console.Write(ex.Message);
                 throw;
             } 
+        }
+        /// <summary>
+        ///从当前日期开始往后move
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="count"></param>
+        public void MoveAfterDateArchive(DateTime date, int count, int days)
+        {
+            try
+            {
+                SearchFilter.IsLessThanOrEqualTo filter = new SearchFilter.IsLessThanOrEqualTo(ItemSchema.DateTimeReceived, date.AddDays(days));
+                SearchFilter.IsGreaterThanOrEqualTo filter2 = new SearchFilter.IsGreaterThanOrEqualTo(ItemSchema.DateTimeReceived, date);
+                SearchFilter.SearchFilterCollection searchFilterCollection = new SearchFilter.SearchFilterCollection(LogicalOperator.And, filter, filter2);
+                if (_service != null)
+                {
+                    FindFoldersResults aFolders = _service.FindFolders(WellKnownFolderName.MsgFolderRoot, new SearchFilter.IsEqualTo(FolderSchema.DisplayName, "Archive"), new FolderView(10));
+                    if (aFolders.Folders.Count == 1)
+                    {
+                        FolderId archiveFolderId = aFolders.Folders[0].Id;
+
+                        FindItemsResults<Item> findResults = _service.FindItems(WellKnownFolderName.Inbox, searchFilterCollection, new ItemView(count));
+                        Console.WriteLine($"date: {date.ToShortDateString()}, count: {findResults.TotalCount}");
+
+                        List<ItemId> itemids = new List<ItemId>();
+                        foreach (var item in findResults)
+                        {
+                            itemids.Add(item.Id);
+                        }
+                        if (itemids.Count > 0)
+                        {
+                            Console.WriteLine("moving ... ...");
+                            Stopwatch sw = new Stopwatch();
+                            sw.Start();
+                            _service.MoveItems(itemids, archiveFolderId);
+                            sw.Stop();
+                            //new Timer(new TimerCallback(timer_Elapsed), null, 0, 30000);
+
+                            Console.WriteLine($"move successful after {sw.ElapsedMilliseconds} ms, then sleep 30s ...");
+
+                            System.Threading.Thread.Sleep(30000); //30s
+                        }
+
+                    }
+                }
+            }
+            catch (ServiceRequestException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("try again...");
+                MoveAfterDateArchive(date, count, days);
+            }
+            catch(ServerBusyException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("sleep 120s ...");
+                System.Threading.Thread.Sleep(120000); //120s
+                Console.WriteLine("try again...");
+                MoveAfterDateArchive(date, count, days);
+            }
+           
+        }
+
+        private static void timer_Elapsed(object sender)
+        {
+            int n = 1;
+            if (n <= 30)
+            {
+                Console.Write(" " + n );
+                n++;
+            }
         }
 
         public void ReceiveEmailByFindItems(DateTime date, int count)
