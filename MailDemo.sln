@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSendTester", "EmailSen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EWSwith14", "EWSwith14\EWSwith14.csproj", "{C2563925-9662-45F2-B252-A42C8BCD04C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppCreateTestData", "ConsoleAppCreateTestData\ConsoleAppCreateTestData.csproj", "{36F5E497-02F4-49C8-B446-A0493269DB62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office365ArchiveTool", "Office365ArchiveTool\Office365ArchiveTool.csproj", "{282B7C94-40FF-4753-98A2-A8F115B9E071}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,22 @@ Global
 		{C2563925-9662-45F2-B252-A42C8BCD04C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2563925-9662-45F2-B252-A42C8BCD04C2}.Release|x64.ActiveCfg = Release|Any CPU
 		{C2563925-9662-45F2-B252-A42C8BCD04C2}.Release|x64.Build.0 = Release|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Debug|x64.Build.0 = Debug|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Release|x64.ActiveCfg = Release|Any CPU
+		{36F5E497-02F4-49C8-B446-A0493269DB62}.Release|x64.Build.0 = Release|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Debug|x64.Build.0 = Debug|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|x64.ActiveCfg = Release|Any CPU
+		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

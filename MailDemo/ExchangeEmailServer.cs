@@ -184,6 +184,7 @@ namespace MailDemo
                         {
                             _service.MoveItems(itemids, archiveFolderId);
                             Console.WriteLine("move successful!");
+                            System.Threading.Thread.Sleep(10000); //30s
                         }
                     }
                 }
