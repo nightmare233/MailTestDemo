@@ -4,27 +4,27 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Exchange.WebServices.Data;
-using Microsoft.Exchange.WebServices.Auth;
+using Microsoft.Exchange.WebServices.Data; 
 using Microsoft.Exchange.WebServices.Autodiscover;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using System.Diagnostics;
 using System.Threading;
 
-namespace MailDemo
+namespace EWSwith14
 {
-    public class ExchangeEmailServer
-    {
+    public class EWSServerwith14
+    { 
         private ExchangeService _service;
-        private readonly string username = "frank@comm100.com"; //"frank@comm100.com";
-        private readonly string password = "gvhldhhkdxtcnpvc"; //frank
+        private readonly string username = "letschat@comm100.com"; //"frank@comm100.com";
+        //private readonly string password = "gvhldhhkdxtcnpvc"; //frank
+        private readonly string password = "qmwwgdqvyklkbhcl"; //letschat
         //private readonly string password = "nfzhpbdsdvdbzryf"; //support
         //private readonly string password = "bssqhswzsqptjkfy"; //oden
         private readonly string domain = "";
         private readonly string serverUrl = "https://outlook.office365.com/EWS/Exchange.asmx";
 
-        public ExchangeEmailServer()
+        public EWSServerwith14()
         {
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate (Object obj, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
@@ -68,7 +68,7 @@ namespace MailDemo
                     return false;
                 }
             };
-            _service = new ExchangeService(ExchangeVersion.Exchange2013_SP1);
+            _service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
             //_service = new ExchangeService();
             //_service.Credentials = new WebCredentials(username, password, domain);
             //_service.Credentials = new NetworkCredential(username, password);
@@ -92,9 +92,7 @@ namespace MailDemo
         public void ReceiveEmail()
         {
             string syncState = "";
-            ChangeCollection<ItemChange> itemChanges = null;
-            //PropertySet properties = new PropertySet();
-            //properties.();
+            ChangeCollection<ItemChange> itemChanges = null; 
             int count = 0;
             do
             {
@@ -126,8 +124,7 @@ namespace MailDemo
                     }
                 }
             }
-            while (itemChanges.MoreChangesAvailable && count < 50);
-
+            while (itemChanges.MoreChangesAvailable && count < 50); 
         }
 
         public void GetMailsFromArchive(DateTime date, int count)
@@ -244,7 +241,7 @@ namespace MailDemo
                 Console.WriteLine("try again...");
                 MoveAfterDateArchive(date, count, days);
             }
-            catch (ServerBusyException ex)
+            catch (ServiceRemoteException ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("sleep 120s ...");
@@ -252,7 +249,10 @@ namespace MailDemo
                 Console.WriteLine("try again...");
                 MoveAfterDateArchive(date, count, days);
             }
-
+            catch (Exception)
+            {
+                throw;
+            } 
         }
 
         private static void timer_Elapsed(object sender)
@@ -315,8 +315,7 @@ namespace MailDemo
         {
             Folder.Bind(_service, WellKnownFolderName.Inbox);
             Console.WriteLine("test success.");
-        }
-
+        } 
 
         public void CountEmailsNumber()
         {

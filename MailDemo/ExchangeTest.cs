@@ -17,26 +17,27 @@ namespace MailDemo
             //exchangeEmailServer.ReceiveEmail();
             //exchangeEmailServer.GetOneEmail();
             //exchangeEmailServer.MoveArchive(date, count);
-            exchangeEmailServer.ReceiveEmailByFindItems(date, count);
+            //exchangeEmailServer.ReceiveEmailByFindItems(date, count);
             //exchangeEmailServer.GetMailsFromArchive(date, count); 
+            exchangeEmailServer.CountEmailsNumber();
         }
 
         public static void Archive()
         {
-            Console.WriteLine("please input the year of begin date (example: 2017):");
-            int year = int.Parse(Console.ReadLine());
-            Console.WriteLine("please input the month of begin date (example: 10):");
-            int month = int.Parse(Console.ReadLine());
-            Console.WriteLine("please input the day of begin date (example: 23):");
-            int day = int.Parse(Console.ReadLine());
-            DateTime date = new DateTime(year, month, day);
-            //DateTime date = new DateTime(2014, 8, 11);
+            //Console.WriteLine("please input the year of begin date (example: 2017):");
+            //int year = int.Parse(Console.ReadLine());
+            //Console.WriteLine("please input the month of begin date (example: 10):");
+            //int month = int.Parse(Console.ReadLine());
+            //Console.WriteLine("please input the day of begin date (example: 23):");
+            //int day = int.Parse(Console.ReadLine());
+            //DateTime date = new DateTime(year, month, day);
+            DateTime date = new DateTime(2017, 12, 4);
             int count = 1000;
-            int days = 3;
+            int days = 6;
             ExchangeEmailServer exchangeEmailServer = new ExchangeEmailServer();
 
 
-            while (date < new DateTime(2017, 12, 31))
+            while (date < new DateTime(2018, 4, 30))
             {
                 Console.WriteLine(date.ToShortDateString());
                 exchangeEmailServer.MoveAfterDateArchive(date, count, days);
