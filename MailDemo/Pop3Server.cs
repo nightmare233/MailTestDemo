@@ -42,7 +42,8 @@ namespace MailDemo
             MailMessage msg;
             try
             { 
-                msg = Pop3.QuickDownloadMessage("pop.126.com", "frankfeng24", "Aa00000000", 1);
+                //msg = Pop3.QuickDownloadMessage("pop.126.com", "frankfeng24", "Aa00000000", 1);
+                msg = Pop3.QuickDownloadMessage("pop.163.com", "fengchufu", "Weisheng0409", -1);
                 if (msg != null)
                 {
                     Console.WriteLine("Subject: " + msg.Subject);

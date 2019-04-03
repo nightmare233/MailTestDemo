@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppCreateTestData", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office365ArchiveTool", "Office365ArchiveTool\Office365ArchiveTool.csproj", "{282B7C94-40FF-4753-98A2-A8F115B9E071}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPITest", "WebAPITest\WebAPITest.csproj", "{69C03574-9EF2-4205-B16E-7E06F03F796E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHookTest", "WebHookTest\WebHookTest.csproj", "{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,22 @@ Global
 		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|Any CPU.Build.0 = Release|Any CPU
 		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|x64.ActiveCfg = Release|Any CPU
 		{282B7C94-40FF-4753-98A2-A8F115B9E071}.Release|x64.Build.0 = Release|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Debug|x64.Build.0 = Debug|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Release|x64.ActiveCfg = Release|Any CPU
+		{69C03574-9EF2-4205-B16E-7E06F03F796E}.Release|x64.Build.0 = Release|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Debug|x64.Build.0 = Debug|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Release|x64.ActiveCfg = Release|Any CPU
+		{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
