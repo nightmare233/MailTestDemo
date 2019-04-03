@@ -46,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Comm100.Framework">
+      <HintPath>..\packages\Comm100.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Comm100.Public">
+      <HintPath>..\packages\Comm100.Public.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />

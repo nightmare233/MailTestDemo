@@ -1,71 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Com.Comm100.Framework.Common;
+using Newtonsoft.Json;
 
-namespace WebHookTest.Controllers
+namespace ConsoleApp
 {
-    public class HomeController : Controller
+    public class TestWebhook
     {
-        public ActionResult Index()
+        public static void TriggerWebhook()
         {
-            ViewBag.Title = "Home Page";
-
-            return View();
-        }
-
-        public ActionResult TriggerWebhook(string msg)
-        {
-            string webhookURL = "http://localhost:51968/Home/ReceiveNotify";
+            string webhookURL = "http://localhost:51968/Home/ReceiveNotify"; 
             var mainThreadId = Thread.CurrentThread.ManagedThreadId;
-            LogHelper.Error("main thread:" + mainThreadId);
-           
-            string valueStr = JsonConvert.SerializeObject(new
+            Console.WriteLine("main thread:" + mainThreadId);
+            var param = new
             {
-                msg = msg
-            });
-            
-            Task<HttpResponseMessage> task = PostAsync2(webhookURL, valueStr);
-            task.ContinueWith(p =>
+                msg = "web hook 13"
+            };
+            var param2 = new
             {
-                try
-                {
-                    if (p.Result.IsSuccessStatusCode)
-                    {
-                        var res = p.Result.Content.ReadAsStringAsync().Result;
-                        var theadId = Thread.CurrentThread.ManagedThreadId;
-                        LogHelper.Error(res);
-                        LogHelper.Error("result thread:" + theadId);
-                    }
-                    else
-                    {
-                        LogHelper.Error(p.Result.ReasonPhrase);
-                        //webhook 发送异常， URL错误，或者对方内部程序抛出异常！
-                        //todo:重发，或者存进webhook log 表。
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.WriteExceptionLog(ex);
-                    //webhook 发送异常， URL错误，或者对方内部程序抛出异常！
-                    //todo:重发，或者存进webhook log 表。
-                }
-                
-            });
+                msg = "web hook 23"
+            };
+            var param3 = new
+            {
+                msg = "james 24"
+            };
+            var param4 = new
+            {
+                msg = "oden 56"
+            };
+            string valueStr = JsonConvert.SerializeObject(param);
+            string valueStr2 = JsonConvert.SerializeObject(param2);
+            string valueStr3 = JsonConvert.SerializeObject(param3);
+            string valueStr4 = JsonConvert.SerializeObject(param4);
+            //Task<HttpResponseMessage> task = PostAsync2(webhookURL, valueStr);
+            //task.ContinueWith(p =>
+            //{
+            //    var res = p.Result.Content.ReadAsStringAsync().Result;
+            //    var theadId = Thread.CurrentThread.ManagedThreadId;
+            //    Console.WriteLine(res);
+            //    Console.WriteLine("result thread:" + theadId);
+            //});
 
             //Task<HttpResponseMessage> task2 = PostAsync2(webhookURL, valueStr2);
             //task2.ContinueWith(p =>
             //{
             //    var res = p.Result.Content.ReadAsStringAsync().Result;
-            //    LogHelper.Error(res);
+            //    Console.WriteLine(res);
             //    var theadId2 = Thread.CurrentThread.ManagedThreadId;
-            //    LogHelper.Error("result thread2: " + theadId2);
+            //    Console.WriteLine("result thread2: " + theadId2);
             //});
 
             //Task<HttpResponseMessage> task3 = PostAsync2(webhookURL, valueStr3);
@@ -73,13 +60,12 @@ namespace WebHookTest.Controllers
             //{
             //    var res = p.Result.Content.ReadAsStringAsync().Result;
             //    var theadId = Thread.CurrentThread.ManagedThreadId;
-            //    LogHelper.Error(res);
-            //    LogHelper.Error("result thread 3:" + theadId);
+            //    Console.WriteLine(res);
+            //    Console.WriteLine("result thread 3:" + theadId);
             //});
 
-            //PostAsync(webhookURL, valueStr4); 
-            return Content("api response");
-        } 
+            PostAsync(webhookURL, valueStr4); 
+        }
 
         //这个方法不能收到response，因为httpclient已经释放掉了。
         private static void PostAsync(string url, string paramJson)
@@ -94,12 +80,14 @@ namespace WebHookTest.Controllers
                     {
                         Content = content,
                     };
-                    LogHelper.Error("post webhook: " + paramJson);
+                    //req.Headers.Add("Authorization", $"Bearer {TokenManager.Instance.Token.AccessToken}");
+                    Console.WriteLine("post webhook: " + paramJson);
+                    //return client.SendAsync(req);
                     var res = client.SendAsync(req);
                     if (res.Result.IsSuccessStatusCode)
                     {
                         var res1 = res.Result.Content.ReadAsStringAsync().Result;
-                        LogHelper.Error(res1);
+                        Console.WriteLine(res1);
                         //return res;
                     }
                     else
@@ -110,9 +98,8 @@ namespace WebHookTest.Controllers
             }
             catch (Exception ex)
             {
-                LogHelper.WriteExceptionLog(ex);
-               //发送失败， URL错误，或者对方内部程序抛出异常。
-               //重发， 或者 存进webhook log 表。
+               Console.Write(ex);
+                throw;
             }
 
         }
@@ -124,8 +111,9 @@ namespace WebHookTest.Controllers
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
             HttpClient client = new HttpClient { Timeout = new TimeSpan(0, 0, 10 * 60) }; //10min
-            LogHelper.Error("post webhook: " + paramJson);
+            Console.WriteLine("post webhook: " + paramJson);
             return client.PostAsync(url, content);
         }
+
     }
 }
