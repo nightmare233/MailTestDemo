@@ -25,7 +25,7 @@ namespace WebAPITest.Controllers
             //System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory +  @"\logs\log1.log.", "I receive your message. time:" + DateTime.Now.ToLongTimeString());
             
             Random random = new Random();
-            int i = random.Next(1,5);
+            int i = random.Next(1,10);
 
             Thread.Sleep(1000 * i); //15s
             var result = new
