@@ -25,7 +25,7 @@ namespace WebAPITest.Controllers
             //System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory +  @"\logs\log1.log.", "I receive your message. time:" + DateTime.Now.ToLongTimeString());
             
             Random random = new Random();
-            int i = random.Next(1,3);
+            int i = random.Next(1,5);
 
             Thread.Sleep(1000 * i); //15s
             var result = new
@@ -33,7 +33,7 @@ namespace WebAPITest.Controllers
                 code = i,
                 message = msg
             };
-            throw new Exception("dddddddd  500");
+            //throw new Exception("dddddddd  500");
             return Json(result);
         }
     }

@@ -30,34 +30,52 @@ namespace WebHookTest.Controllers
             {
                 msg = msg
             });
-            
-            Task<HttpResponseMessage> task = PostAsync2(webhookURL, valueStr);
-            task.ContinueWith(p =>
+
+            //单线程从webhook log表中拿数据，每个周期根据next post time值拿一定数量(如100个)，构建list。 下个周期拿的是另外100个。
+            //这里模拟构建50个webhook。
+            List<WebhookStruct> list = new List<WebhookStruct>();
+            for (int i = 0; i < 50; i++)
             {
-                try
-                {
-                    if (p.Result.IsSuccessStatusCode)
-                    {
-                        var res = p.Result.Content.ReadAsStringAsync().Result;
-                        var theadId = Thread.CurrentThread.ManagedThreadId;
-                        LogHelper.Error(res);
-                        LogHelper.Error("result thread:" + theadId);
-                    }
-                    else
-                    {
-                        LogHelper.Error(p.Result.ReasonPhrase);
-                        //webhook 发送异常， URL错误，或者对方内部程序抛出异常！
-                        //todo:重发，或者存进webhook log 表。
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.WriteExceptionLog(ex);
-                    //webhook 发送异常， URL错误，或者对方内部程序抛出异常！
-                    //todo:重发，或者存进webhook log 表。
-                }
-                
-            });
+                list.Add(new WebhookStruct {
+                    eventId= i,
+                    webhookURL = webhookURL,
+                    payload = valueStr
+                });
+            }
+            //多线程去发送webhook, 超时时间为15s,所以这50个webhook log必然有结果，
+            //失败去更新webhook log表的last&next post time，成功则删除。
+            BatchPostWebhook(list);
+            LogHelper.Error("TriggerWebhook ended...");
+
+
+            //Task<HttpResponseMessage> task = PostAsync2(webhookURL, valueStr);
+            //task.ContinueWith(p =>
+            //{
+            //    try
+            //    {
+            //        if (p.Result.IsSuccessStatusCode)
+            //        {
+            //            //webhook发送成功，判断response中是否带有扫描结果。
+            //            var res = p.Result.Content.ReadAsStringAsync().Result;
+            //            var theadId = Thread.CurrentThread.ManagedThreadId;
+            //            LogHelper.Error(res);
+            //            LogHelper.Error("result thread:" + theadId);
+            //        }
+            //        else
+            //        {
+            //            LogHelper.Error(p.Result.ReasonPhrase);
+            //            //webhook 发送异常， URL错误，或者对方内部程序抛出异常！
+            //            //todo:重发，或者存进webhook log 表。
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        LogHelper.WriteExceptionLog(ex);
+            //        //webhook 发送异常， URL错误，或者对方内部程序抛出异常！
+            //        //todo:重发，或者存进webhook log 表。
+            //    }
+
+            //});
 
             //Task<HttpResponseMessage> task2 = PostAsync2(webhookURL, valueStr2);
             //task2.ContinueWith(p =>
@@ -68,14 +86,6 @@ namespace WebHookTest.Controllers
             //    LogHelper.Error("result thread2: " + theadId2);
             //});
 
-            //Task<HttpResponseMessage> task3 = PostAsync2(webhookURL, valueStr3);
-            //task3.ContinueWith(p =>
-            //{
-            //    var res = p.Result.Content.ReadAsStringAsync().Result;
-            //    var theadId = Thread.CurrentThread.ManagedThreadId;
-            //    LogHelper.Error(res);
-            //    LogHelper.Error("result thread 3:" + theadId);
-            //});
 
             //PostAsync(webhookURL, valueStr4); 
             return Content("api response");
@@ -122,10 +132,61 @@ namespace WebHookTest.Controllers
         {
             HttpContent content = new StringContent(paramJson);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-
-            HttpClient client = new HttpClient { Timeout = new TimeSpan(0, 0, 10 * 60) }; //10min
-            LogHelper.Error("post webhook: " + paramJson);
+            HttpClient client = new HttpClient { Timeout = new TimeSpan(0, 0, 3) }; //设置每次webhook的超时时间为3秒。
             return client.PostAsync(url, content);
         }
+
+        //批量发送webhook， 每批发送20个。
+        private static void BatchPostWebhook(List<WebhookStruct> list)
+        {
+            int i = 1;
+            foreach(var item in list)
+            {  
+                Task<HttpResponseMessage> task = PostAsync2(item.webhookURL, item.payload);
+                //处理response结果。
+                task.ContinueWith(p =>
+                {
+                    i++;
+                    try
+                    {
+                        if (p.Result.IsSuccessStatusCode)
+                        {
+                            var theadId = Thread.CurrentThread.ManagedThreadId;
+                            //webhook发送成功，判断response中是否带有扫描结果, 如果有扫描结果则对结果进行更新，如果没有结果就不作处理。
+                            var res = p.Result.Content.ReadAsStringAsync().Result;
+                            LogHelper.Error("success, result thread:" + theadId + item.eventId + ": " + res); 
+                        }
+                        else
+                        {
+                            LogHelper.Error(p.Result.ReasonPhrase);
+                            //webhook 发送异常， URL错误，或者对方内部程序抛出异常，或者超时
+                            //todo: 更新webhook log表。 
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Error(item.eventId +": "+ ex.Message);
+                        //webhook 发送异常。
+                        //todo:重发，或者存进webhook log 表。
+                    }
+                });
+            }
+            while (true)
+            {
+                if (i >= 50)
+                {
+                    LogHelper.Error("BatchPostWebhook ended...i=" + i);
+                    return;
+                } 
+            }
+        }
+    }
+
+    public class WebhookStruct
+    {
+        public int eventId { get; set; }
+        public string webhookURL { get; set; }
+        public string payload { get; set; }
+        //public int status { get; set; } //0： 未发送， 1：正在发送， 2：已经发送
     }
 }
