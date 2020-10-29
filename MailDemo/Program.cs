@@ -12,14 +12,14 @@ namespace MailDemo
        
         static void Main(string[] args)
         {
-            MailBee.Global.LicenseKey = "MN110-D91111D8119D1153115F786B0AC5-BA28"; //2019-3-19 ~ 4-18 expired.
+            MailBee.Global.LicenseKey = "MN110-BD758AFA74AB752575128ACF6CAE-EEE7"; //comm100 license
             try
             {
                 Console.WriteLine("begin...");
-                //Pop3Server.ReceiveEmail();
+                //Pop3Server.Pop3ReceiveEmail();
                 //ExchangeEmailServer exchange = new ExchangeEmailServer();
-                //exchange.ReceiveEmail();
-                SMTPServer.SendMail126();
+                //exchange.ReceiveEmail
+                Pop3Server.SendEmail();
                 Console.WriteLine("done!");
                 Console.ReadKey();
             }

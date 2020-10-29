@@ -17,7 +17,7 @@ namespace MailDemo
     public class ExchangeEmailServer
     {
         private ExchangeService _service;
-        private readonly string username = "frank@comm100.com"; //"frank@comm100.com";
+        private readonly string username = "frank.feng@comm100.com"; //"frank@comm100.com";
         private readonly string password = "gvhldhhkdxtcnpvc"; //frank
         //private readonly string password = "nfzhpbdsdvdbzryf"; //support
         //private readonly string password = "bssqhswzsqptjkfy"; //oden
@@ -112,6 +112,9 @@ namespace MailDemo
                         {
                             EmailMessage emailMessage = EmailMessage.Bind(_service, itemChange.ItemId);
                             Console.WriteLine("create time: " + emailMessage.DateTimeCreated + ": " + emailMessage.Subject + ", from: " + emailMessage.From.Address);
+                            Console.WriteLine($"emailMessage.Id.UniqueId: {emailMessage.Id.UniqueId}");
+                            //Console.WriteLine($"itemChange.Item.Id.UniqueId: { itemChange.Item.Id.UniqueId}");
+                            Console.WriteLine(emailMessage.Id.UniqueId == itemChange.Item.Id.UniqueId);
                             //Console.WriteLine(emailMessage.Body);
                             //Console.WriteLine(count + ": " + itemChange.ItemId.UniqueId);
                         }

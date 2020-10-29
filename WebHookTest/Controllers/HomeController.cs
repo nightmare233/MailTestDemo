@@ -25,34 +25,28 @@ namespace WebHookTest.Controllers
             string webhookURL = "http://localhost:82/Home/ReceiveNotify";
             var mainThreadId = Thread.CurrentThread.ManagedThreadId;
             LogHelper.Error("main thread:" + mainThreadId);
-            
-            bool ifHasWebhookPosted = true; //从数据库判断是否有webhook要发送.
 
             //单线程从webhook log表中拿数据，根据next post time值拿一定数量(如100个)。
             //这里模拟构建100个webhook。
             List<WebhookStruct> list = new List<WebhookStruct>();
             for (int i = 0; i < count; i++)
             {
-                list.Add(new WebhookStruct {
-                    eventId= i,
+                list.Add(new WebhookStruct
+                {
+                    eventId = i,
                     webhookURL = webhookURL,
                     payload = JsonConvert.SerializeObject(new
                     {
                         msg = "webhook " + i
                     })
-            });
+                });
             }
-            while (ifHasWebhookPosted)
-            {
-                //发送webhook, 异步等待response， 超时时间为15s。失败去更新webhook log表的last&next post time，成功则删除。
-                //所有这100个webhook都有返回了，这个方法才结束。 
-                BatchPostWebhook(list);
-                Thread.Sleep(10000);  //每隔10秒钟去执行一次。
-                ifHasWebhookPosted = false;// 重新到数据库查询是否有webhook要发。
-            }
-            LogHelper.Error("TriggerWebhook ended..."); 
+            //发送webhook, 异步等待response， 超时时间为15s。失败去更新webhook log表的last&next post time，成功则删除。
+            //所有这100个webhook都有返回了，这个方法才结束。 
+            BatchPostWebhook(list);
+            LogHelper.Error("TriggerWebhook ended...");
             return Content("api response");
-        } 
+        }
 
         //这个方法不能收到response，因为httpclient已经释放掉了。
         private static void PostAsync(string url, string paramJson)
@@ -90,7 +84,7 @@ namespace WebHookTest.Controllers
 
         }
 
-        //这个方法能收到response，
+        //发送webhook，返回task
         private static Task<HttpResponseMessage> PostAsync2(string url, string paramJson)
         {
             HttpContent content = new StringContent(paramJson);

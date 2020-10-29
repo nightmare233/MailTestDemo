@@ -54,8 +54,8 @@ namespace EmailSendTester
             message.Subject = subject;
             message.BodyEncoding = System.Text.UnicodeEncoding.Unicode;
             //message.Body = body + Environment.NewLine + body;
-            message.Body = "##-Please type your reply above this line-##" + "\n\r" + body;
-
+            //message.Body = "#/*#*/-Please type your reply above this line-##" + "\n\r" + body;
+            message.Body = body;
             SmtpClient client = new SmtpClient("smtp."+ senderEmail.Split('@')[1], 25);
             string account = senderEmail.Split('@')[0];
             client.Credentials = new System.Net.NetworkCredential(account, password);
