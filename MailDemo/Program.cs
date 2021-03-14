@@ -16,10 +16,10 @@ namespace MailDemo
             try
             {
                 Console.WriteLine("begin...");
-                //Pop3Server.Pop3ReceiveEmail();
+                Pop3Server.Pop3ReceiveEmail();
                 //ExchangeEmailServer exchange = new ExchangeEmailServer();
-                //exchange.ReceiveEmail
-                Pop3Server.SendEmail();
+                //exchange.ReceiveEmail();
+                //Pop3Server.SendEmail();
                 Console.WriteLine("done!");
                 Console.ReadKey();
             }

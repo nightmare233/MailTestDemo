@@ -18,7 +18,7 @@ namespace MailDemo
     {
         private ExchangeService _service;
         private readonly string username = "frank.feng@comm100.com"; //"frank@comm100.com";
-        private readonly string password = "gvhldhhkdxtcnpvc"; //frank
+        private readonly string password = "bchmywmyzkxvmcht"; //frank
         //private readonly string password = "nfzhpbdsdvdbzryf"; //support
         //private readonly string password = "bssqhswzsqptjkfy"; //oden
         private readonly string domain = "";
