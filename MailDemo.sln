@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDemo", "MailDemo\MailDemo.csproj", "{D02E0363-2A3F-48E9-B61D-632DC4054AAD}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHookTest", "WebHookTest\WebHookTest.csproj", "{F91AE1B8-8A77-4390-BAC8-AE1D4C6037DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{E6C571CE-E542-4CAB-B478-1DB4BF46CCE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailBeeVersionTest", "MailBeeVersionTest\MailBeeVersionTest.csproj", "{6C044AC6-E026-48FC-87DE-F8C6F0724906}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,14 @@ Global
 		{E6C571CE-E542-4CAB-B478-1DB4BF46CCE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6C571CE-E542-4CAB-B478-1DB4BF46CCE9}.Release|x64.ActiveCfg = Release|Any CPU
 		{E6C571CE-E542-4CAB-B478-1DB4BF46CCE9}.Release|x64.Build.0 = Release|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

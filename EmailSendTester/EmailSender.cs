@@ -14,10 +14,10 @@ namespace EmailSendTester
     public partial class EmailSender : Form
     {
         public static readonly int intervalSeconds = 4;
-        public static string bodyCotent = "Frank test send an email";
+        public static string bodyCotent = "test send an email";
         public int currentCount = 0;
         public static string[] emailList = new string[] {
-            //"frankfeng23@126.com/Aa00000000",
+            //"frankfeng23@126.com/*********",
             //""
         };
         public Dictionary<string, string> emailDic = new Dictionary<string, string> { };

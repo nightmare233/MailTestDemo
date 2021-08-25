@@ -286,3 +286,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/subjects2.txt
+/subjects1.txt
+/subjects.txt
+/MailBeeVersionTest/Properties/AssemblyInfo.cs

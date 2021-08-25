@@ -7,7 +7,7 @@ using MailBee.Mime;
 using MailBee.Pop3Mail;
 using MailBee.SmtpMail;
 
-namespace MailDemo
+namespace MailBeeVersionTest
 {
     public class Pop3Server
     {
@@ -37,6 +37,7 @@ namespace MailDemo
             try
             {
                 MailBee.Pop3Mail.Pop3 pop3 = new MailBee.Pop3Mail.Pop3();
+                Pop3.LicenseKey = "MN110-9E565627568556335608A32D4F47-FC3B";// "MN110-BD758AFA74AB752575128ACF6CAE-EEE7";
                 pop3.Log.Enabled = true;
                 pop3.Log.Filename = @"log.txt";
 
@@ -45,18 +46,18 @@ namespace MailDemo
                     pop3.Timeout = 10000;
                     //bool ifConnect = pop3.Connect("pop.gmail.com", 995);
                     //bool ifConnect = pop3.Connect("pop.163.com", 995);
-                    bool ifConnect = pop3.Connect("pop.126.com", 995);
+                    //bool ifConnect = pop3.Connect("pop.126.com", 995);
                     //pop3.SslMode = MailBee.Security.SslStartupMode.OnConnect;
-                    //bool ifConnect = pop3.Connect("outlook.office365.com", 995);
-                    
+                    bool ifConnect = pop3.Connect("outlook.office365.com", 995);
+
                 }
                 if (!pop3.IsLoggedIn)
                 {
                     //bool ifLogin = pop3.Login("customerservice@shopvintagebrand.com", "dcsrbisbxztxqqru");
                     //bool ifLogin = pop3.Login("fengchufu@gmail.com", "fcf.1130,gmail");
                     //bool ifLogin = pop3.Login("Oden.Wan@comm100.com", "cmljyggwcswhwlsz", MailBee.AuthenticationMethods.Auto, MailBee.AuthenticationOptions.PreferSimpleMethods, null);
-                    bool ifLogin = pop3.Login("fengchufu@126.com", "fcf.1130,126");
-                    //bool ifLogin = pop3.Login("fengchufu@outlook.com", "Weisheng0409", MailBee.AuthenticationMethods.Auto, MailBee.AuthenticationOptions.PreferSimpleMethods, null);
+                    //bool ifLogin = pop3.Login("fengchufu@126.com", "fcf.1130,126");
+                    bool ifLogin = pop3.Login("fengchufu@outlook.com", "Weisheng0409", MailBee.AuthenticationMethods.Auto, MailBee.AuthenticationOptions.PreferSimpleMethods, null);
                 }
                 int total = pop3.InboxMessageCount;
                 var ids = pop3.GetMessageUids();
@@ -110,7 +111,7 @@ namespace MailDemo
             message.To.Add("fengchufu@163.com");
             message.From.Email = "frankfeng23@126.com";
             message.BodyHtmlText = "test return path";
-            message.Sender = "frankfeng23@example.com";
+            //message.Sender = "frankfeng23@example.com";
             smtp.Message = message;
             smtp.Send();
 
