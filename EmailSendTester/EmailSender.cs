@@ -45,12 +45,29 @@ namespace EmailSendTester
             client.Send(message);
         }
 
-        public static void SendMail(string receiveEmailAddress, string subject, string body, string senderEmail, string password)
-        {  
+        public static void SendMail(string receiveEmailAddressList, string subject, string body, string senderEmail, string password)
+        {
+            password = "Aa00000000";
+            receiveEmailAddressList =
+            @"fengchufu@126.com;
+            frank.feng@comm100.com;
+            oden.wan@comm100.com;
+            shelay.tao@comm100.com;
+            raymond.zhang@comm100.com;
+            shane.wang@comm100.com;
+            shelay111@163.com";
+
             MailMessage message = new MailMessage();
             message.From = new MailAddress(senderEmail);
-            message.To.Add(new MailAddress(receiveEmailAddress));
-
+            if (!string.IsNullOrEmpty(receiveEmailAddressList))
+            {
+                var list = receiveEmailAddressList.Trim().Replace("\r", "").Replace("\n", "").Split(';');
+                foreach (var item in list)
+                {
+                    if (!string.IsNullOrEmpty(item.Trim()))
+                        message.To.Add(new MailAddress(item));
+                } 
+            } 
             message.Subject = subject;
             message.BodyEncoding = System.Text.UnicodeEncoding.Unicode;
             //message.Body = body + Environment.NewLine + body;
@@ -78,7 +95,9 @@ namespace EmailSendTester
             string email = this.ltb_emaillist.SelectedItem.ToString().Split('/')[0];
             string password = this.ltb_emaillist.SelectedItem.ToString().Split('/')[1];
             currentCount++;
-            SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
+            EWSServerwith15 eWSServerwith15 = new EWSServerwith15();
+            eWSServerwith15.SendEmail();
+            //SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
             this.lbl_message.Text = "The first mail has been sent successfully!";
         }
 
@@ -133,8 +152,9 @@ namespace EmailSendTester
                     this.ltb_emaillist.SelectedIndex++;
                 }
                 this.currentCount++;
-                SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
-
+                //SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
+                EWSServerwith15 eWSServerwith15 = new EWSServerwith15();
+                eWSServerwith15.SendEmail();
                 this.lbl_message.Text = "Already sent email count: " + currentCount;
             }
             catch (Exception ex)

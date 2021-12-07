@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailBeeVersionTest", "MailBeeVersionTest\MailBeeVersionTest.csproj", "{6C044AC6-E026-48FC-87DE-F8C6F0724906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange15", "Exchange15\Exchange15.csproj", "{2D00CD11-79B6-4278-8525-E64DDD30E7AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,14 @@ Global
 		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|x64.ActiveCfg = Release|Any CPU
 		{6C044AC6-E026-48FC-87DE-F8C6F0724906}.Release|x64.Build.0 = Release|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D00CD11-79B6-4278-8525-E64DDD30E7AA}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

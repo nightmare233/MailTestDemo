@@ -16,9 +16,9 @@ namespace EWSwith14
     public class EWSServerwith14
     { 
         private ExchangeService _service;
-        private readonly string username = "letschat@comm100.com"; //"frank@comm100.com";
-        //private readonly string password = "gvhldhhkdxtcnpvc"; //frank
-        private readonly string password = "qmwwgdqvyklkbhcl"; //letschat
+        private readonly string username = "support@dynamsoft.com";//"letschat@comm100.com";"oden.wan@comm100.com";
+        private readonly string password = "DeirkgeE4rgee"; //frank
+        //private readonly string password = "xpzyxfmcxlffpnkz"; //letschat
         //private readonly string password = "nfzhpbdsdvdbzryf"; //support
         //private readonly string password = "bssqhswzsqptjkfy"; //oden
         private readonly string domain = "";
@@ -26,7 +26,7 @@ namespace EWSwith14
 
         public EWSServerwith14()
         {
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
             System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate (Object obj, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
             {
                 if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
@@ -74,7 +74,7 @@ namespace EWSwith14
             //_service.Credentials = new NetworkCredential(username, password);
             NetworkCredential networkCredential = new NetworkCredential(username, password);
             _service.Credentials = networkCredential;//new OAuthCredentials(networkCredential);
-            _service.TraceEnabled = false;
+            _service.TraceEnabled = true;
             //_service.AutodiscoverUrl(username);
             if (string.IsNullOrEmpty(serverUrl))
             {
@@ -94,9 +94,10 @@ namespace EWSwith14
             string syncState = "";
             ChangeCollection<ItemChange> itemChanges = null; 
             int count = 0;
+            int index = 512;
             do
             {
-                itemChanges = _service.SyncFolderItems(new FolderId(WellKnownFolderName.Inbox), PropertySet.IdOnly, null, 50, SyncFolderItemsScope.NormalItems, syncState);
+                itemChanges = _service.SyncFolderItems(new FolderId(WellKnownFolderName.Inbox), PropertySet.IdOnly, null, index, SyncFolderItemsScope.NormalItems, syncState);
                 syncState = itemChanges.SyncState;
                 count += itemChanges.Count;
                 Console.WriteLine("itemchanges count : " + count);
@@ -124,7 +125,7 @@ namespace EWSwith14
                     }
                 }
             }
-            while (itemChanges.MoreChangesAvailable && count < 50); 
+            while (itemChanges.MoreChangesAvailable && count < index); 
         }
 
         public void GetMailsFromArchive(DateTime date, int count)
