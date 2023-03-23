@@ -17,8 +17,10 @@ namespace MailDemo
     public class ExchangeEmailServer
     {
         private ExchangeService _service;
-        private readonly string username = "frank.feng@comm100.com"; //"frank@comm100.com";
-        private readonly string password = "bchmywmyzkxvmcht"; //frank
+        // "nik.liew@dynamsoft.com";//"frank.feng@comm100.com"; 
+        //"bzbzttjtvncwwwqf";//"Gux41450"; //"bchmywmyzkxvmcht"; //frank
+        private readonly string username = "meeting5@dynamsoft.com";
+        private readonly string password = "Baj71104";
         //private readonly string password = "nfzhpbdsdvdbzryf"; //support
         //private readonly string password = "bssqhswzsqptjkfy"; //oden
         private readonly string domain = "";

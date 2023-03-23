@@ -13,7 +13,7 @@ namespace MailDemo
             DateTime date = new DateTime(2014, 01, 01);
             int count = 2000;
             ExchangeEmailServer exchangeEmailServer = new ExchangeEmailServer();
-            //exchangeEmailServer.Test();
+            exchangeEmailServer.Test();
             //exchangeEmailServer.ReceiveEmail();
             //exchangeEmailServer.GetOneEmail();
             //exchangeEmailServer.MoveArchive(date, count);
