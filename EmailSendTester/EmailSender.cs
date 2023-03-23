@@ -46,17 +46,7 @@ namespace EmailSendTester
         }
 
         public static void SendMail(string receiveEmailAddressList, string subject, string body, string senderEmail, string password)
-        {
-            password = "Aa00000000";
-            receiveEmailAddressList =
-            @"fengchufu@126.com;
-            frank.feng@comm100.com;
-            oden.wan@comm100.com;
-            shelay.tao@comm100.com;
-            raymond.zhang@comm100.com;
-            shane.wang@comm100.com;
-            shelay111@163.com";
-
+        { 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(senderEmail);
             if (!string.IsNullOrEmpty(receiveEmailAddressList))
@@ -96,8 +86,8 @@ namespace EmailSendTester
             string password = this.ltb_emaillist.SelectedItem.ToString().Split('/')[1];
             currentCount++;
             EWSServerwith15 eWSServerwith15 = new EWSServerwith15();
-            eWSServerwith15.SendEmail();
-            //SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
+            //eWSServerwith15.SendEmail();
+            SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
             this.lbl_message.Text = "The first mail has been sent successfully!";
         }
 
@@ -152,9 +142,9 @@ namespace EmailSendTester
                     this.ltb_emaillist.SelectedIndex++;
                 }
                 this.currentCount++;
-                //SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
-                EWSServerwith15 eWSServerwith15 = new EWSServerwith15();
-                eWSServerwith15.SendEmail();
+                SendMail(this.txb_emailaddress.Text.Trim(), this.txb_subject.Text + " - " + currentCount, this.txb_content.Text, email, password);
+                //EWSServerwith15 eWSServerwith15 = new EWSServerwith15();
+                //eWSServerwith15.SendEmail();
                 this.lbl_message.Text = "Already sent email count: " + currentCount;
             }
             catch (Exception ex)

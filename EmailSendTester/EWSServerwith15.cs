@@ -95,17 +95,7 @@ namespace EmailSendTester
         public async Task<bool> SendEmail()
         {
             EmailMessage emailMessage = new EmailMessage(_service);
-            string receiveEmailAddressList = "fengchufu@163.com";
-            //@"fengchufu@126.com;
-            //frank.feng@comm100.com;
-            //oden.wan@comm100.com;
-            //shelay.tao@comm100.com;
-            //raymond.zhang@comm100.com;
-            //shane.wang@comm100.com;
-            //shelay111@163.com";
-
-         
-            
+            string receiveEmailAddressList = "fengchufu@163.com";  
             if (!string.IsNullOrEmpty(receiveEmailAddressList))
             {
                 var list = receiveEmailAddressList.Trim().Replace("\r", "").Replace("\n", "").Split(';');
